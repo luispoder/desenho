@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>meu primeiro canvas</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+   
+
+</head>
+<body> 
+    <script src="sketch.js"></script>
+    <center>
+    <h1> Meu primeiro Canvas </h1>
+    <canvas id="canvas" width="650px" height="600px"></canvas>
+    <br>
+
+    <input id="cor" type="text" placeholder="Digite a cor 🎨">
+    <input id="larguraLinha" type="number" placeholder="Digite a largura do pincel 🖌️🎨">
+    <button onclick="trocar()" >TROCAR</button>
+    <button id="botaoLimpar" onclick="limpar()"> Limpar 🧹 </button>
+    <img src="inojin e sarada.png" width="" height="">
+   
+</center>
+
+    <script>
+        
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+
+        var ultimoX, ultimoY;
+        cor = "black";
+        larguraLinha = 1;
+
+        if(screen.width <  1062){
+            canvas.width = screen.width - 70;
+            canvas.height =screen.height-300;
+            document.body.style.overflow= 'hidden';
+
+        }
+        
+      canvas.addEventListener("touchstart", dedoTocou)
+      function dedoTocou(e){
+      console.log(e);
+      ultimoX = e.touches[0].clientX - canvas.offsetLeft;
+      ultimoY = e.touches[0].clientY - canvas.offsetTop;
+      }
+      canvas.addEventListener("touchmove",mover)
+      function mover(e){
+       atualX = e.touches[0].clientX - canvas.offsetLeft;
+       atualY = e. touches[0].clientY - canvas.offsetTop;
+       ctx.beginPath();
+       ctx.strokeStyle = cor;
+       ctx.lineWidth=larguraLinha;
+     ctx.moveTo(ultimoX, ultimoY);
+     ctx.lineTo(atualX, atualY);
+     ctx.stroke();
+
+     ultimoX = atualX
+     ultimoY = atualY;
+      }
+        
+
+        // fim do mesmo código utilizado para a versão web
+        function limpar(){
+            ctx.clearRect(0,0,canvas.width, canvas.height)
+        }
+        function trocar(){
+            cor = document.getElementById("cor").value;
+            larguralinha = document.getElementById("larguraLinha").value;
+        }
+
+    </script>
+</body>
+</html>
